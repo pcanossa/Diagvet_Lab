@@ -1,0 +1,71 @@
+.body-app {
+    background-color: #d3e0f0; /* Cor de fundo principal */
+    font-family: 'Nunito', sans-serif; /* Fonte Roboto */
+    padding-bottom: 20px;
+}
+
+.cab {
+  max-width: 80%;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  background-color: #ffffff;
+  border-radius: 15px;
+}
+
+option {
+  font: 'Roboto', sans-serif; /* Fonte Roboto para opções */
+  font-size: 13px;
+}
+
+.img-logo {
+  max-width: 70%;
+}
+
+.header-title {
+    color: #1f2c38;
+}
+
+.cab-form {
+  text-align: center;
+  color: #b02b2b;
+  font-size: 20px;
+}
+
+.card {
+    max-width: 80%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    box-shadow: 10px 10px 5px rgb(12, 30, 36);
+}
+
+.btn-analisar {
+    background-color: #3bced2; /* Cor primária (teal) */
+    color: white;
+    transition: background-color 0.3s;
+    color: #b02b2b;
+}
+.btn-analisar:hover {
+    background-color: #2ca5a9;
+}
+.result-card {
+    background-color: white;
+    border-left: 6px solid #b02b2b; /* Cor de destaque (vermelho) */
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+.form-select {
+    border-color: #cbd5e1;
+}
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3bced2;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

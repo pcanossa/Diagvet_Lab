@@ -1,0 +1,164 @@
+<div class="body-app d-flex flex-column align-items-center justify-content-center">
+    <!-- CABEÇALHO -->
+    <div class="cab d-flex flex-column items-center text-center mb-8">
+      <img src="assets/img/Logo.png" class="img-logo">
+      <p class="text-lg text-gray-600 mt-2">Plataforma de auxílio à interpretação de hemogramas veterinário.</p>
+    </div>
+
+    <!-- FORMULÁRIO DE ENTRADA (visível quando não há resultados e não está carregando) -->
+    <main *ngIf="!results && !isLoading" class="card p-6 md:p-8">
+      <form (ngSubmit)="analisarHemograma()">
+        <h5 class="cab-form text-1xl font-bold text-gray-800 mb-6"> Insira os Parâmetros do Exame</h5>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Coluna da Esquerda -->
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-4 border-b pb-2">Série Vermelha</h3>
+            <div class="space-y-4">
+              <div>
+                <label for="eritrocitos" class="block text-sm font-medium text-gray-600">Eritrócitos</label>
+                <select id="eritrocitos" name="eritrocitos" [(ngModel)]="eritrocitos" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                  <option>Normal</option><option>Alto</option><option>Baixo</option>
+                </select>
+              </div>
+              <div>
+                <label for="vcm" class="block text-sm font-medium text-gray-600">VCM</label>
+                <select id="vcm" name="vcm" [(ngModel)]="vcm" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                    <option>Normal</option><option>Alto</option><option>Baixo</option>
+                </select>
+              </div>
+              <div>
+                  <label for="chcm" class="block text-sm font-medium text-gray-600">CHCM</label>
+                  <select id="chcm" name="chcm" [(ngModel)]="chcm" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Normal</option><option>Baixo</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="rdw" class="block text-sm font-medium text-gray-600">RDW</label>
+                  <select id="rdw" name="rdw" [(ngModel)]="rdw" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Normal</option><option>Aumentado</option><option>Nao_Informado</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="reticulocitos" class="block text-sm font-medium text-gray-600">Reticulócitos</label>
+                  <select id="reticulocitos" name="reticulocitos" [(ngModel)]="reticulocitos" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
+                  </select>
+              </div>
+            </div>
+
+            <h3 class="text-lg font-semibold text-gray-700 mt-8 mb-4 border-b pb-2">Plaquetas</h3>
+            <div class="space-y-4">
+              <div>
+                <label for="plaquetas" class="block text-sm font-medium text-gray-600">Plaquetas</label>
+                <select id="plaquetas" name="plaquetas" [(ngModel)]="plaquetas" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                    <option>Normal</option><option>Alto</option><option>Baixo</option>
+                </select>
+              </div>
+              <div>
+                  <label for="pdw" class="block text-sm font-medium text-gray-600">PDW</label>
+                  <select id="pdw" name="pdw" [(ngModel)]="pdw" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Nao_Informado</option><option>Normal</option><option>Aumentado</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="vpm" class="block text-sm font-medium text-gray-600">VPM</label>
+                  <select id="vpm" name="vpm" [(ngModel)]="vpm" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coluna da Direita -->
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-4 border-b pb-2">Série Branca</h3>
+            <div class="space-y-4">
+              <div>
+                <label for="leucocitos_totais" class="block text-sm font-medium text-gray-600">Leucócitos Totais</label>
+                <select id="leucocitos_totais" name="leucocitos_totais" [(ngModel)]="leucocitos_totais" class="form-select mt-2 block w-full rounded-md shadow-sm">
+                    <option>Normal</option><option>Alto</option><option>Baixo</option>
+                </select>
+              </div>
+              <div>
+                  <label for="neutrofilos_seg" class="block text-sm font-medium text-gray-600">Neutrófilos Segmentados</label>
+                  <select id="neutrofilos_seg" name="neutrofilos_seg" [(ngModel)]="neutrofilos_seg" class="form-select mt-2 block w-full rounded-md shadow-sm">
+                      <option>Normal</option><option>Alto</option><option>Baixo</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="neutrofilos_bast" class="block text-sm font-medium text-gray-600">Neutrófilos Bastonetes</label>
+                  <select id="neutrofilos_bast" name="neutrofilos_bast" [(ngModel)]="neutrofilos_bast" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="linfocitos" class="block text-sm font-medium text-gray-600">Linfócitos</label>
+                  <select id="linfocitos" name="linfocitos" [(ngModel)]="linfocitos" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Normal</option><option>Alto</option><option>Baixo</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="monocitos" class="block text-sm font-medium text-gray-600">Monócitos</label>
+                  <select id="monocitos" name="monocitos" [(ngModel)]="monocitos" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="eosinofilos" class="block text-sm font-medium text-gray-600">Eosinófilos</label>
+                  <select id="eosinofilos" name="eosinofilos" [(ngModel)]="eosinofilos" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
+                  </select>
+              </div>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-700 mt-8 mb-4 border-b pb-2">Observações</h3>
+            <div class="space-y-4">
+              <div>
+                  <label for="febre_clinica" class="block text-sm font-medium text-gray-600">Febre Clínica?</label>
+                  <select id="febre_clinica" name="febre_clinica" [(ngModel)]="febre_clinica" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Não</option><option>Sim</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="observacao_agregados" class="block text-sm font-medium text-gray-600">Observação de Agregados?</label>
+                  <select id="observacao_agregados" name="observacao_agregados" [(ngModel)]="observacao_agregados" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Não</option><option>Sim</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="grafico_plq" class="block text-sm font-medium text-gray-600">Gráfico Plq</label>
+                  <select id="grafico_plq" name="grafico_plq" [(ngModel)]="grafico_plq" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                      <option>Nao_Informado</option><option>Normal</option><option>Curva Desviada para Esquerda</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- BOTÃO DE AÇÃO -->
+        <div class="mt-8 pt-6 border-t">
+          <button type="submit" class="w-full btn-analisar font-bold py-3 px-4 rounded-lg text-lg">
+            Analisar Hemograma
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <!-- SPINNER DE CARREGAMENTO (visível quando isLoading é true) -->
+    <div *ngIf="isLoading" class="flex justify-center items-center mt-8">
+      <div class="loader"></div>
+      <p class="ml-4 text-gray-600">Analisando... Por favor, aguarde.</p>
+    </div>
+
+    <!-- SEÇÃO DE RESULTADOS (visível quando há resultados) -->
+    <section *ngIf="results" class="card p-6 md:p-8 mt-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">Laudo Inteligente Gerado</h2>
+      <!-- O *ngFor cria um card de resultado para cada item no array 'results' -->
+      <div *ngFor="let result of results" class="result-card">
+        <h4 class="font-bold text-lg text-gray-800">{{ result.titulo }}</h4>
+        <p class="text-gray-600 mt-1">{{ result.diagnostico }}</p>
+      </div>
+      <button (click)="realizarNovaAnalise()" class="w-full mt-6 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg text-lg">
+        Realizar Nova Análise
+      </button>
+    </section>
+  </div>
