@@ -12,6 +12,10 @@
   border-radius: 15px;
 }
 
+select {
+  font-size: 13px;
+}
+
 option {
   font: 'Roboto', sans-serif; /* Fonte Roboto para opções */
   font-size: 13px;
@@ -25,9 +29,15 @@ option {
     color: #1f2c38;
 }
 
+.sv {
+  color: #690505; /* Cor vermelha */
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
 .cab-form {
   text-align: center;
-  color: #b02b2b;
+  color: #2bb0b0;
   font-size: 20px;
 }
 
