@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core'; // Importa o decorador Component do Angular
 import { CommonModule } from '@angular/common'; // Necessário para *ngIf, *ngFor
 import { FormsModule } from '@angular/forms';   // Necessário para [(ngModel)]
+import { HttpClient } from '@angular/common/http'; // Importe o HttpClient
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,9 @@ import { FormsModule } from '@angular/forms';   // Necessário para [(ngModel)]
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  // --- Injeção de dependência do HttpClient para chamadas HTTP ---
+  private http = inject(HttpClient);
+
   // --- Propriedades para os dados do formulário com valores iniciais ---
   eritrocitos: string = 'Normal';
   hematocrito: string = 'Normal';
@@ -35,6 +39,28 @@ export class HomeComponent {
   // --- Propriedades para controlar o estado da UI (visibilidade dos elementos) ---
   isLoading: boolean = false;
   results: any[] | null = null; // Armazenará o laudo da API
+
+
+  // Função para tratar os dados do paciente antes de enviar para a API
+    dateTreatment(dadosPaciente: { [key: string]: string }): { [key: string]: string } {
+    const dadosTratados = { ...dadosPaciente }; // Cria uma cópia para evitar mutação
+    for (const key in dadosTratados) {
+      if (dadosTratados[key] === 'Não Informado') {
+        // Substitui 'Não Informado' por 'nao_informado'
+        dadosTratados[key] = 'nao_informado';
+      } else {
+        // Converte o valor para minúsculas, se necessário
+        dadosTratados[key] = dadosTratados[key].toLowerCase();
+      }
+    }
+    return dadosTratados;
+  }
+
+    realizarNovaAnalise(): void {
+    this.results = null;
+    this.isLoading = false;
+  }
+
 
   // --- Método chamado quando o formulário é enviado ---
   analisarHemograma(): void {
@@ -62,43 +88,48 @@ export class HomeComponent {
       'Gráfico Plq': this.grafico_plq,
     };
 
-    // Função para tratar os dados do paciente antes de enviar para a API
-    function dateTreatment(dadosPaciente: { [key: string]: string }) {
-      for (const key in dadosPaciente) {
-        if (dadosPaciente[key] === 'Não Informado') {
-          dadosPaciente[key] = 'Nao_Informado'; // Converte 'Não Informado' para 'Nao_Informado'
-        } else {
-          dadosPaciente[key].toLowerCase(); // Converte o valor para minúsculas
-        }
+    const dadosTratados = this.dateTreatment(dadosPaciente); // Tratamento dos dados
+
+
+    // Chamada para a API
+    this.http.post('/api/analisar', dadosTratados).subscribe({
+      next: (response: any) => {
+        this.results = Object.entries(response).map(([chave, valor]) => ({
+            titulo: chave.replace('Analise_', '').replace(/_/g, ' '),
+            diagnostico: valor
+        }));
+          console.log("Resposta da API:", this.results);
+          this.isLoading = false;
+      },
+      error: (error: any) => { // CORREÇÃO 3: Adicionado o tipo 'any' para o parâmetro de erro
+        console.error("Erro ao chamar a API:", error);
+        this.results = [{ titulo: "Erro na Análise", diagnostico: "Não foi possível processar a solicitação." }];
+        this.isLoading = false;
       }
-    }
+    });
+  }
+
+
 
     // Simulação da chamada da API (em um app real, use o HttpClient do Angular)
-    console.log("Enviando para API (simulado):", dadosPaciente);
+    //console.log("Enviando para API (simulado):", dadosPaciente);
 
-    setTimeout(() => {
+    //setTimeout(() => {
       // Resposta simulada que a sua API Python retornaria
-      const mockApiResponse = {
-        "Analise_Case_1": "Anemia Regenerativa - Sugestivo de Hemólise",
-        "Analise_Case_2": "Leucograma de Estresse (Padrão Corticoide)",
-        "Analise_Case_3": "Trombocitopenia Real - Sugestivo de Consumo/Destruição Periférica"
-      };
+      //const mockApiResponse = {
+        //"Analise_Case_1": "Anemia Regenerativa - Sugestivo de Hemólise",
+        //"Analise_Case_2": "Leucograma de Estresse (Padrão Corticoide)",
+        //"Analise_Case_3": "Trombocitopenia Real - Sugestivo de Consumo/Destruição Periférica"
+      //};
 
        // Transforma o objeto de resposta em um array para ser usado pelo *ngFor no template
-      this.results = Object.entries(mockApiResponse).map(([chave, valor]) => ({
-          titulo: chave.replace('Analise_', '').replace(/_/g, ' '),
-          diagnostico: valor
-      }));
+      //this.results = Object.entries(mockApiResponse).map(([chave, valor]) => ({
+          //titulo: chave.replace('Analise_', '').replace(/_/g, ' '),
+          //diagnostico: valor
+      //}));
 
-      console.log("Resposta da API (simulado):", this.results);
 
-      this.isLoading = false;
-    }, 2000); // Simula 2 segundos de espera da rede
-  }
+
 
   // --- Método para voltar ao formulário e realizar uma nova análise ---
-  realizarNovaAnalise(): void {
-    this.results = null;
-    this.isLoading = false;
-  }
 }
