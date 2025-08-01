@@ -129,6 +129,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:4200", # A origem do app Angular
+    "https://diagvet-lab.onrender.com/" # A origem do app Angular no Render
 ]
 
 # Configuração do CORS para permitir requisições do frontend
