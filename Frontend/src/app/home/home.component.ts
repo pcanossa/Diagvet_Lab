@@ -19,19 +19,18 @@ export class HomeComponent {
   vcm: string = 'Normal';
   chcm: string = 'Normal';
   rdw: string = 'Normal';
-  reticulocitos: string = 'Nao_Informado';
+  reticulocitos: string = 'Normal'
   leucocitos_totais: string = 'Normal';
   neutrofilos_seg: string = 'Normal';
-  neutrofilos_bast: string = 'Nao_Informado';
+  neutrofilos_bast: string = 'Normal'
   linfocitos: string = 'Normal';
-  monocitos: string = 'Nao_Informado';
-  eosinofilos: string = 'Nao_Informado';
+  monocitos: string = 'Normal'
+  eosinofilos: string = 'Normal'
   plaquetas: string = 'Normal';
-  pdw: string = 'Nao_Informado';
-  vpm: string = 'Nao_Informado';
-  febre_clinica: string = 'Nao';
+  pdw: string = 'Normal'
+  vpm: string = 'Normal'
   observacao_agregados: string = 'Nao';
-  grafico_plq: string = 'Nao_Informado';
+  grafico_plq: string = 'Normal'
 
   // --- Propriedades para controlar o estado da UI (visibilidade dos elementos) ---
   isLoading: boolean = false;
@@ -43,7 +42,7 @@ export class HomeComponent {
     this.results = null;
 
     // Dados do paciente a serem enviados para a API
-    const dadosPaciente = {
+    const dadosPaciente: { [key: string]: string } = {
       'Eritrocitos': this.eritrocitos,
       'Hematocrito': this.hematocrito,
       'VCM': this.vcm,
@@ -61,8 +60,18 @@ export class HomeComponent {
       'VPM': this.vpm,
       'Observacao_Agregados': this.observacao_agregados,
       'Gráfico Plq': this.grafico_plq,
-      'Febre_Clinica': this.febre_clinica
     };
+
+    // Função para tratar os dados do paciente antes de enviar para a API
+    function dateTreatment(dadosPaciente: { [key: string]: string }) {
+      for (const key in dadosPaciente) {
+        if (dadosPaciente[key] === 'Não Informado') {
+          dadosPaciente[key] = 'Nao_Informado'; // Converte 'Não Informado' para 'Nao_Informado'
+        } else {
+          dadosPaciente[key].toLowerCase(); // Converte o valor para minúsculas
+        }
+      }
+    }
 
     // Simulação da chamada da API (em um app real, use o HttpClient do Angular)
     console.log("Enviando para API (simulado):", dadosPaciente);

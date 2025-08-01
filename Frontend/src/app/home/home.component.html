@@ -22,6 +22,12 @@
                 </select>
               </div>
               <div>
+                <label for="hematocrito" class="block text-sm font-medium text-gray-600">Hematócrito</label>
+                <select id="hematocrito" name="hematocrito" [(ngModel)]="hematocrito" class="form-select mt-1 block w-full rounded-md shadow-sm">
+                  <option>Normal</option><option>Alto</option><option>Baixo</option>
+                </select>
+              </div>
+              <div>
                 <label for="vcm" class="block text-sm font-medium text-gray-600">VCM</label>
                 <select id="vcm" name="vcm" [(ngModel)]="vcm" class="form-select mt-1 block w-full rounded-md shadow-sm">
                     <option>Normal</option><option>Alto</option><option>Baixo</option>
@@ -36,13 +42,13 @@
               <div>
                   <label for="rdw" class="block text-sm font-medium text-gray-600">RDW</label>
                   <select id="rdw" name="rdw" [(ngModel)]="rdw" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Normal</option><option>Aumentado</option><option>Nao_Informado</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
               <div>
                   <label for="reticulocitos" class="block text-sm font-medium text-gray-600">Reticulócitos</label>
                   <select id="reticulocitos" name="reticulocitos" [(ngModel)]="reticulocitos" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
             </div>
@@ -58,13 +64,13 @@
               <div>
                   <label for="pdw" class="block text-sm font-medium text-gray-600">PDW</label>
                   <select id="pdw" name="pdw" [(ngModel)]="pdw" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Nao_Informado</option><option>Normal</option><option>Aumentado</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
               <div>
                   <label for="vpm" class="block text-sm font-medium text-gray-600">VPM</label>
                   <select id="vpm" name="vpm" [(ngModel)]="vpm" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
             </div>
@@ -89,46 +95,40 @@
               <div>
                   <label for="neutrofilos_bast" class="block text-sm font-medium text-gray-600">Neutrófilos Bastonetes</label>
                   <select id="neutrofilos_bast" name="neutrofilos_bast" [(ngModel)]="neutrofilos_bast" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
               <div>
                   <label for="linfocitos" class="block text-sm font-medium text-gray-600">Linfócitos</label>
                   <select id="linfocitos" name="linfocitos" [(ngModel)]="linfocitos" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Normal</option><option>Alto</option><option>Baixo</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
               <div>
                   <label for="monocitos" class="block text-sm font-medium text-gray-600">Monócitos</label>
                   <select id="monocitos" name="monocitos" [(ngModel)]="monocitos" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
               <div>
                   <label for="eosinofilos" class="block text-sm font-medium text-gray-600">Eosinófilos</label>
                   <select id="eosinofilos" name="eosinofilos" [(ngModel)]="eosinofilos" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Nao_Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option><option>Baixo</option>
                   </select>
               </div>
             </div>
             <h3 class="text-lg font-semibold text-gray-700 mt-8 mb-4 border-b pb-2">Observações</h3>
             <div class="space-y-4">
               <div>
-                  <label for="febre_clinica" class="block text-sm font-medium text-gray-600">Febre Clínica?</label>
-                  <select id="febre_clinica" name="febre_clinica" [(ngModel)]="febre_clinica" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Não</option><option>Sim</option>
-                  </select>
-              </div>
-              <div>
                   <label for="observacao_agregados" class="block text-sm font-medium text-gray-600">Observação de Agregados?</label>
                   <select id="observacao_agregados" name="observacao_agregados" [(ngModel)]="observacao_agregados" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Não</option><option>Sim</option>
+                      <option>Nao</option><option>Sim</option>
                   </select>
               </div>
               <div>
                   <label for="grafico_plq" class="block text-sm font-medium text-gray-600">Gráfico Plq</label>
                   <select id="grafico_plq" name="grafico_plq" [(ngModel)]="grafico_plq" class="form-select mt-1 block w-full rounded-md shadow-sm">
-                      <option>Nao_Informado</option><option>Normal</option><option>Curva Desviada para Esquerda</option>
+                      <option>Não Informado</option><option>Normal</option><option>Alto</option>
                   </select>
               </div>
             </div>
