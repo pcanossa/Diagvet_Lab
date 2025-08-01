@@ -35,9 +35,15 @@ option {
   font-size: 1.0rem;
 }
 
+.sb {
+  color: #beb202; /* Cor vermelha */
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
 .cab-form {
   text-align: center;
-  color: #2bb0b0;
+  color: #2bb0b0; /* Cor primária (teal) */
   font-size: 20px;
 }
 
