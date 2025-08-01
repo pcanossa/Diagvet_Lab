@@ -98,7 +98,7 @@ export class HomeComponent {
 
 
     // Chamada para a API
-    this.http.post('http://localhost:8000/api/analisar_hemograma', dadosTratados).subscribe({
+    this.http.post('https://diagvetlab-api.onrender.com/api/analisar_hemograma', dadosTratados).subscribe({
       next: (response: any) => {
         this.results = Object.entries(response).map(([chave, valor]) => ({
             titulo: this.caseTitles[chave] || chave.replace('Analise_', '').replace(/_/g, ' '),
