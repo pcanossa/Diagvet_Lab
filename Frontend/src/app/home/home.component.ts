@@ -40,6 +40,12 @@ export class HomeComponent {
   isLoading: boolean = false;
   results: any[] | null = null; // Armazenará o laudo da API
 
+   private caseTitles: { [key: string]: string } = {
+    'Analise_Case_1': 'Análise da Série Vermelha',
+    'Analise_Case_2': 'Análise da Série Branca',
+    'Analise_Case_3': 'Análise de Plaquetas'
+  };
+
 
   // Função para tratar os dados do paciente antes de enviar para a API
     dateTreatment(dadosPaciente: { [key: string]: string }): { [key: string]: string } {
@@ -85,21 +91,22 @@ export class HomeComponent {
       'PDW': this.pdw,
       'VPM': this.vpm,
       'Observacao_Agregados': this.observacao_agregados,
-      'Gráfico Plq': this.grafico_plq,
+      'Grafico_Plq': this.grafico_plq,
     };
 
     const dadosTratados = this.dateTreatment(dadosPaciente); // Tratamento dos dados
 
 
     // Chamada para a API
-    this.http.post('/api/analisar', dadosTratados).subscribe({
+    this.http.post('http://localhost:8000/api/analisar_hemograma', dadosTratados).subscribe({
       next: (response: any) => {
         this.results = Object.entries(response).map(([chave, valor]) => ({
-            titulo: chave.replace('Analise_', '').replace(/_/g, ' '),
+            titulo: this.caseTitles[chave] || chave.replace('Analise_', '').replace(/_/g, ' '),
             diagnostico: valor
-        }));
-          console.log("Resposta da API:", this.results);
-          this.isLoading = false;
+        })
+      );
+        console.log("Resposta da API:", this.results);
+        this.isLoading = false;
       },
       error: (error: any) => { // CORREÇÃO 3: Adicionado o tipo 'any' para o parâmetro de erro
         console.error("Erro ao chamar a API:", error);

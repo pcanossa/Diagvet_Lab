@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Dict, Any
 from sklearn.tree import DecisionTreeClassifier
+from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
 # Ignorar avisos futuros para manter a saída limpa
@@ -74,7 +75,7 @@ print("- Modelo Especialista do Case 3 (Plaquetas) treinado.\n")
 
 # Agrupando os modelos e colunas para fácil acesso
 modelos_e_colunas = {
-    #'Case 1': (modelo_case1, colunas_case1),
+    'Case 1': (modelo_case1, colunas_case1),
     'Case 2': (modelo_case2, colunas_case2),
     'Case 3': (modelo_case3, colunas_case3)
 }
@@ -125,6 +126,22 @@ modelos_e_colunas = {
 #print ('********** INSERIR NAS PERGUNTAS A SEGUIR: ALTO, NORMAL OU BAIXO; SIM OU NÃO *********\n OBS: EM PARAMETROS AUSENTES, DEIXAR EM BRANCO\n')
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:4200", # A origem do app Angular
+]
+
+# Configuração do CORS para permitir requisições do frontend
+# Isso é necessário para que o frontend possa se comunicar com a API sem problemas de CORS.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"], # Permite todos os métodos (GET, POST, etc)
+    allow_headers=["*"], # Permite todos os cabeçalhos
+)
+# ------------------------------------
+
 # Modelo Pydantic para validação dos dados do paciente
 # Isso garante que os dados recebidos estejam no formato correto e ajuda na documentação da API.
 class Hemograma(BaseModel):    
@@ -168,6 +185,7 @@ def analisar_hemograma(novo_paciente: Hemograma):
         # Adicionar ao relatório
         nome_analise = f"Analise_{case.replace(' ', '_')}"
         relatorio_final[nome_analise] = predicao[0]
+        #print(f"Análise {nome_analise} concluída: {predicao[0]}")
     return relatorio_final
 
 
