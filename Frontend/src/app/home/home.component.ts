@@ -33,7 +33,7 @@ export class HomeComponent {
   plaquetas: string = 'Normal';
   pdw: string = 'Normal'
   vpm: string = 'Normal'
-  observacao_agregados: string = 'Nao';
+  observacao_agregados: string = 'Não';
   grafico_plq: string = 'Normal'
 
   // --- Propriedades para controlar o estado da UI (visibilidade dos elementos) ---
