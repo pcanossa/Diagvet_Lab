@@ -2,7 +2,6 @@ fastapi
 pandas
 scikit-learn
 pydantic
-uvicorn[standart]
+uvicorn[standard]
 gunicorn
 python-dotenv
-os
