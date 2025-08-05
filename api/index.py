@@ -7,7 +7,17 @@ from pydantic import BaseModel
 from typing import Dict, Any
 from sklearn.tree import DecisionTreeClassifier
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import os
 import warnings
+
+# Carrega as variáveis do arquivo .env
+load_dotenv()
+
+#Acessar as variáveis de ambiente
+url_case1 = os.getenv('URL_CASE1')
+url_case2 = os.getenv('URL_CASE2')
+url_case3 = os.getenv('URL_CASE3')
 
 # Ignorar avisos futuros para manter a saída limpa
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -21,9 +31,9 @@ def formatar_url_gsheets(url):
 
 # URLs das suas planilhas
 # url_triador = formatar_url_gsheets('https://docs.google.com/spreadsheets/d/1WGxbB1jQVfC7Lfd7dyvMTymV6Q8AAkUuQ7J_gyNG53Y/edit?usp=sharing')
-url_case1 = formatar_url_gsheets('https://docs.google.com/spreadsheets/d/1Js5wuduycKnQ8A2zh1G9wOCpAw3q15O_crbRuD3Wpl0/edit?usp=sharing')
-url_case2 = formatar_url_gsheets('https://docs.google.com/spreadsheets/d/1bx61oNSc9Rb8-5GGenC8XeTmeRwqp91E_F3uFdNvaPI/edit?usp=sharing')
-url_case3 = formatar_url_gsheets('https://docs.google.com/spreadsheets/d/15kRKMAuCe27L0qyPKO10S5WS6G0bEmpU0vLtaCDxOL4/edit?usp=sharing')
+url_case1 = formatar_url_gsheets(url_case1)
+url_case2 = formatar_url_gsheets(url_case2)
+url_case3 = formatar_url_gsheets(url_case3)
 
 # Carregando os dados em DataFrames
 try:

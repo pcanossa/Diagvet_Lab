@@ -4,3 +4,5 @@ scikit-learn
 pydantic
 uvicorn[standart]
 gunicorn
+python-dotenv
+os
