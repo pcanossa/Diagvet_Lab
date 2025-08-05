@@ -95,6 +95,7 @@ export class HomeComponent {
     };
 
     const dadosTratados = this.dateTreatment(dadosPaciente); // Tratamento dos dados
+    console.log("Dados tratados para envio:", dadosTratados); // Log dos dados tratados
 
 
     // Chamada para a API
