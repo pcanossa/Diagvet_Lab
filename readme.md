@@ -1,109 +1,305 @@
 # 🩸 DIAgvetLab - Plataforma de Análise Veterinária
 
+**🚧 Este projeto está em fase de produção e testes 🚧**
+
+[![Status](https://img.shields.io/badge/status-MVP%20Beta-yellow)](https://diagvet-lab.onrender.com/)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Angular](https://img.shields.io/badge/angular-19+-red.svg)](https://angular.io/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
+
 ## 📖 Sobre o Projeto
 
 O **DIAgvetLab** é uma aplicação SaaS (Software as a Service) para auxiliar médicos veterinários na interpretação de hemogramas. A ferramenta utiliza modelos de Inteligência Artificial (Aprendizado de Máquina) para analisar os parâmetros do exame e fornecer sugestões de diagnóstico baseadas em padrões clínicos, otimizando o tempo e apoiando a decisão clínica.
 
 Este projeto nasceu da necessidade de criar uma ferramenta de apoio que seja rápida, acessível e baseada em conhecimento especializado, transformando dados laboratoriais em insights acionáveis.
 
-O atual estado do projeto, apresenta-se em MVP.
+**🌐 [Acesse o MVP](https://diagvet-lab.onrender.com/)**
+
+## 🎯 Como Funciona
+
+O sistema funciona em camadas especializadas:
+
+1. **Entrada de Dados**: Veterinário insere parâmetros do hemograma via interface web
+2. **Análise Multimodal**: Três modelos especialistas analisam simultaneamente:
+   - **Série Vermelha**: Detecção de anemias e policitemias
+   - **Série Branca**: Identificação de padrões inflamatórios e infecciosos
+   - **Plaquetas**: Análise de trombocitopenias e trombocitoses
+3. **Laudo Inteligente**: Relatório estruturado com interpretações baseadas em IA
 
 ## 🚀 Arquitetura e Tecnologias
 
-O projeto foi construído com uma arquitetura moderna e desacoplada, separando a interface do usuário (Front-end) da lógica de inteligência artificial (Back-end), comunicando-se via API REST.
-
-### Frontend
-- **Framework:** Angular (v19+, com componentes Standalone)
-- **Estilização:** Bootstrap 5, Tailwind e CSS5 customizado
-- **Responsabilidade:** Coletar os dados do exame através de um formulário interativo, enviar para a API, e exibir o laudo gerado de forma clara e organizada.
-
-### Backend
-- **Framework:** Python com FastAPI
-- **Inteligência Artificial:** Scikit-learn (utilizando modelos de Árvore de Decisão)
-- **Manipulação de Dados:** Pandas
-- **Responsabilidade:** Receber os dados do hemograma via um endpoint de API, processá-los, passá-los pelos modelos de IA treinados e retornar um laudo estruturado em formato JSON.
-
-## ✨ Funcionalidades do MVP
-- **Análise Modular:** O sistema analisa o hemograma em três módulos especialistas independentes:
-  1.  **Série Vermelha (Case 1):** Focado em anemias e policitemias.
-  2.  **Série Branca (Case 2):** Focado em padrões inflamatórios, infecciosos e de estresse.
-  3.  **Plaquetas (Case 3):** Focado em trombocitopenias e trombocitoses.
-- **Interface Intuitiva:** Um formulário simples e direto para a inserção dos parâmetros do exame.
-- **Laudo Estruturado:** Exibição clara das interpretações geradas pela IA para cada série celular analisada.
-- **Base de Conhecimento Externa:** A inteligência dos modelos é alimentada por planilhas Google Sheets, realizada por especialista (Patologista Veterinário(a)), permitindo que a base de conhecimento seja atualizada e expandida de forma contínua e supervisionada, sem a necessidade de alterar o código.
-- **Segurança:** As URLs das planilhas são protegidas como variáveis de ambiente no servidor, não ficando expostas no código, bem como, o acesso à API, limitada por CORS, restringindo acesso por IP.
-
-## ☁️ Deploy
-O MVP está hospedado na nuvem utilizando as seguintes plataformas:
-- **Frontend (Angular):** Publicado como um "Static Site" na Render.
-- **Backend (API FastAPI):** Publicado como um "Web Service" na Render.
-Esta arquitetura garante escalabilidade, separação de responsabilidades e um fluxo de deploy automatizado a partir do GitHub.
-
-## 🛠️ Como Executar o Projeto Localmente
-Para rodar o MVP em sua máquina, você precisará executar o Front-end e o Back-end separadamente em dois terminais.
-
-### 1. Executando o Backend (API com FastAPI)
-1. Navegue até a pasta da API
-```Shell
-
-cd /caminho/para/seu/projeto/api
+### Arquitetura Geral
+```
+Frontend (Angular) ←→ API REST ←→ Backend (FastAPI) ←→ Google Sheets (Base de Conhecimento)
 ```
 
-2. (Recomendado) Crie e ative um ambiente virtual
+### Stack Tecnológico
 
-```Python
+#### Backend (API)
+- **Framework:** Python + FastAPI
+- **Machine Learning:** Scikit-learn (Decision Tree Classifiers)
+- **Processamento de Dados:** Pandas + NumPy
+- **Validação:** Pydantic
+- **Configuração:** python-dotenv
+- **CORS:** Configurado para Angular e deploy
+
+#### Frontend
+- **Framework:** Angular 19+ (Componentes Standalone)
+- **UI/UX:** Bootstrap 5 + Tailwind CSS + CSS5 personalizado
+- **Responsividade:** Mobile-first design
+
+#### Infraestrutura
+- **Deploy:** Render (Frontend como Static Site, Backend como Web Service)
+- **Base de Conhecimento:** Google Sheets (atualizável em tempo real)
+- **Variáveis de Ambiente:** Protegidas no servidor
+
+## ✨ Funcionalidades Detalhadas
+
+### Análise Multimodal Inteligente
+- **3 Modelos Especialistas Independentes**:
+  - Case 1 (Série Vermelha): Análise de eritrócitos, hematócrito, VCM, CHCM, RDW, reticulócitos
+  - Case 2 (Série Branca): Análise de leucócitos totais, neutrófilos, linfócitos, monócitos, eosinófilos
+  - Case 3 (Plaquetas): Análise de contagem, PDW, VPM, agregados plaquetários
+
+### Interface e Experiência
+- **Formulário Intuitivo**: Entrada simplificada com validação em tempo real
+- **Laudo Estruturado**: Resultados organizados por sistema celular
+- **Design Responsivo**: Funciona em desktop, tablet e mobile
+
+### Base de Conhecimento Dinâmica
+- **Atualização Contínua**: Base de dados atualizada via Google Sheets
+- **Supervisão Especializada**: Curada por patologista veterinário
+- **Flexibilidade**: Novos casos podem ser adicionados sem alterar código
+
+## 🛠️ Instalação e Configuração
+
+### Pré-requisitos
+- Python 3.8+
+- Node.js 18+
+- npm ou yarn
+- Conta Google (para configurar planilhas)
+
+### 1. Clonando o Repositório
+```bash
+git clone https://github.com/seu-usuario/diagvet-lab.git
+cd diagvet-lab
+```
+
+### 2. Configurando o Backend
+
+```bash
+# Navegue para a pasta da API
+cd api
+
+# Crie um ambiente virtual (recomendado)
 python -m venv .venv
-# No Windows:
+
+# Ative o ambiente virtual
+# Windows:
 .\.venv\Scripts\activate
-# No MacOS/Linux:
+# macOS/Linux:
 source .venv/bin/activate
-```
 
-3. Instale as dependências
-
-```Python
+# Instale as dependências
 pip install -r requirements.txt
 ```
 
-4.  Crie um arquivo .env na pasta /api para as URLs das planilhas
+### 3. Configuração das Variáveis de Ambiente
 
-```.env
-# Exemplo de conteúdo para o ficheiro .env:
-URL_CASE_1=https://docs.google.com/spreadsheets/d/seu_link_aqui/edit?usp=sharing
-URL_CASE_2=https://docs.google.com/spreadsheets/d/seu_link_aqui/edit?usp=sharing
-URL_CASE_3=https://docs.google.com/spreadsheets/d/seu_link_aqui/edit?usp=sharing
+Crie um arquivo `.env` na pasta `/api`:
+
+```env
+# URLs das planilhas Google Sheets (formato de edição)
+URL_CASE1=https://docs.google.com/spreadsheets/d/[ID_DA_PLANILHA_CASE1]/edit?usp=sharing
+URL_CASE2=https://docs.google.com/spreadsheets/d/[ID_DA_PLANILHA_CASE2]/edit?usp=sharing
+URL_CASE3=https://docs.google.com/spreadsheets/d/[ID_DA_PLANILHA_CASE3]/edit?usp=sharing
 ```
 
-5. Inicie o servidor da API
+**Importante**: As planilhas devem estar configuradas como "Qualquer pessoa com o link pode visualizar".
 
-```Shell
-# O servidor rodará em http://localhost:8000
+### 4. Estrutura das Planilhas Google Sheets
+
+As planilhas devem seguir esta estrutura:
+
+#### Case 1 (Série Vermelha)
+```
+Eritrocitos | Hematocrito | VCM | CHCM | RDW | Reticulocitos | DIAGNÓSTICO_VERMELHA
+BAIXO      | BAIXO       | ALTO| ALTO | ALTO| ALTO          | Anemia_Regenerativa
+...
+```
+
+#### Case 2 (Série Branca)
+```
+Leucocitos_Totais | Neutrofilos_Seg | Neutrofilos_Bast | Linfocitos | ... | DIAGNÓSTICO_BRANCA
+ALTO             | ALTO            | ALTO             | BAIXO      | ... | Inflamacao_Aguda
+...
+```
+
+#### Case 3 (Plaquetas)
+```
+Plaquetas | PDW  | VPM   | Observacao_Agregados | Grafico_Plq | DIAGNÓSTICO_PLAQUETAS
+BAIXO     | ALTO | ALTO  | SIM                  | NORMAL      | Trombocitopenia_Consumo
+...
+```
+
+### 5. Executando o Backend
+
+```bash
+# Na pasta /api
 uvicorn index:app --reload
+
+# O servidor estará disponível em:
+# - API: http://localhost:8000
+# - Documentação automática: http://localhost:8000/docs
 ```
 
-### 2. Executando o Frontend (Aplicação Angular)
-1. Num novo terminal, navegue até a pasta do Frontend
+### 6. Configurando o Frontend
 
-```Shell
-cd /caminho/para/seu/projeto/Frontend
-```
+```bash
+# Em um novo terminal, navegue para a pasta do frontend
+cd frontend
 
-2. Instale as dependências do Node.js (só precisa de fazer isto uma vez)
-
-```Shell
+# Instale as dependências
 npm install
-```
 
-3. Inicie o servidor de desenvolvimento do Angular
-
-```Shell
-# A aplicação estará acessível em http://localhost:4200
+# Inicie o servidor de desenvolvimento
 ng serve
+
+# A aplicação estará disponível em http://localhost:4200
 ```
 
-Após iniciar ambos os servidores, abra o seu navegador em http://localhost:4200 para usar a aplicação.
+## 📊 API Reference
 
-## Status Atual do Projeto
+### Endpoint Principal
 
-**MVP Funcional** acessível em: [**LINK**](https://diagvet-lab.onrender.com/)
+**POST** `/api/analisar_hemograma`
 
+**Request Body:**
+```json
+{
+  "Eritrocitos": "BAIXO",
+  "Hematocrito": "BAIXO",
+  "VCM": "ALTO",
+  "CHCM": "NORMAL",
+  "RDW": "ALTO",
+  "Reticulocitos": "ALTO",
+  "Leucocitos_Totais": "NORMAL",
+  "Neutrofilos_Seg": "NORMAL",
+  "Neutrofilos_Bast": "NORMAL",
+  "Linfocitos": "NORMAL",
+  "Monocitos": "NORMAL",
+  "Eosinofilos": "NORMAL",
+  "Plaquetas": "NORMAL",
+  "PDW": "NORMAL",
+  "VPM": "NORMAL",
+  "Observacao_Agregados": "NAO",
+  "Grafico_Plq": "NORMAL"
+}
+```
+
+**Response:**
+```json
+{
+  "Analise_Case_1": "Anemia_Regenerativa",
+  "Analise_Case_2": "Normal",
+  "Analise_Case_3": "Normal"
+}
+```
+
+### Valores Aceitos
+- **Parâmetros numéricos**: `"baixo"`, `"normal"`, `"alto"`, `Nao_Informado`
+- **Observações**: `"sim"`, `"nao"`, `Nao_Informado`
+- **Campos em branco**: Automaticamente tratados como `"Nao_Informado"`
+
+## 🚨 Limitações Conhecidas
+
+- **Precisão**: Sistema em desenvolvimento, pode apresentar resultados imprecisos
+- **Base de Dados**: Limitada ao conhecimento atual das planilhas
+- **Conectividade**: Dependente da disponibilidade do Render e Google Sheets
+- **Casos Específicos**: Podem apresentar interpretações inadequadas em situações complexas
+- **Validação Clínica**: Necessita validação mais ampla com casos reais
+
+## 🔒 Segurança e Privacidade
+
+- URLs das planilhas protegidas como variáveis de ambiente
+- CORS configurado para permitir apenas origens autorizadas
+- Não armazenamento de dados sensíveis do paciente
+- API RESTful stateless
+
+## 🧪 Testes
+
+```bash
+# Backend - Testes unitários (quando disponíveis)
+cd api
+pytest
+
+# Frontend - Testes Angular (quando disponíveis)
+cd frontend
+ng test
+```
+
+## 🚀 Deploy
+
+### Render (Recomendado)
+
+1. **Backend**: Deploy como Web Service conectando ao repositório GitHub
+2. **Frontend**: Deploy como Static Site após build (`ng build`)
+
+### Variáveis de Ambiente no Render
+Configure as seguintes variáveis no painel do Render:
+- `URL_CASE1`
+- `URL_CASE2` 
+- `URL_CASE3`
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📋 Roadmap
+
+### Versão 1.0
+- [ ] Validação clínica ampliada
+- [ ] Interface de administração para base de conhecimento
+- [ ] Exportação de laudos em PDF
+- [ ] Sistema de histórico de análises
+
+### Versão 2.0
+- [ ] Integração com sistemas LIMS
+- [ ] Análise de tendências temporais
+- [ ] Aprimoramento de modelo de ML
+- [ ] Suporte multi-idiomas
+
+## 📄 Licença
+
+Distribuído sob a licença Apache 2.0. Veja `LICENSE` para mais informações.
+
+## 👥 Equipe
+
+**Patrícia Canossa** - *Desenvolvedora Principal & Patologista Veterinária*
+- [GitHub](https://github.com/pcanossa)
+- [LinkedIn](https://www.linkedin.com/in/patricia-canossa-gagliardi/)
+
+## ⚖️ Aviso Legal
+
+⚠️ **IMPORTANTE**: Este sistema é uma ferramenta de apoio diagnóstico e NÃO substitui o julgamento clínico profissional. Os resultados devem sempre ser interpretados por um médico veterinário qualificado. Sempre consulte literatura veterinária atualizada e diretrizes oficiais para decisões clínicas definitivas.
+
+---
+
+## 📊 Status do Projeto
+
+- **Status Atual**: MVP Beta em Produção
+- **Última Atualização**: 09/08/2025
+- **Versão**: 0.1.0-beta
+- **Ambiente de Produção**: [https://diagvet-lab.onrender.com/](https://diagvet-lab.onrender.com/)
+
+---
+
+### 📞 Suporte
+
+Para questões técnicas, problemas ou sugestões:
+- Abra uma [Issue](https://github.com/seu-usuario/diagvet-lab/issues)
+- Entre em contato via [LinkedIn](https://www.linkedin.com/in/patricia-canossa-gagliardi/)
